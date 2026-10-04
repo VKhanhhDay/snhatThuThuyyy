@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cậu có đang vui không?</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffe3e3, #ffd6a5);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      transition: opacity 0.7s ease, background 1s ease;
+    }
+
+    .fade-out { opacity: 0; }
+
+    .container {
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 30px;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      z-index: 2;
+    }
+
+    #yesBtn {
+      background-color: #70e000;
+      color: white;
+      position: relative;
+      z-index: 2;
+    }
+
+    #noBtn {
+      background-color: #ff595e;
+      color: white;
+      position: fixed;
+      transition: all 0.3s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    button:hover { transform: scale(1.1); }
+
+    /* bel section */
+    .bel-page {
+      flex-direction: column;
+      text-align: center;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+      animation: fadeIn 1s ease;
+      padding: 0;
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .bel-content {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      text-align: center;
+    }
+
+    .bel-page h1 {
+      font-size: 2.8rem;
+      margin: 10px 0;
+      color: #fff;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      margin: 10px 0;
+      color: #fff;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.3);
+    }
+
+    .meme {
+      width: 150px;
+      height: 150px;
+      position: absolute;
+      border-radius: 15px;
+      transition: transform 0.3s;
+      z-index: 1;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="questionPage">
+    <h1>Cậu có đang hạnh phúc không?</h1>
+    <div class="buttons">
+      <button id="yesBtn">Có :33</button>
+      <button id="noBtn">Không T.T </button>
+    </div>
+  </div>
+
+  <div class="bel-page" id="belPage" style="display:none;">
+    <div class="bel-content">
+      <h1>🎉 CHÚC MỪNG SINH NHẬT THU THỦYYYYYYY 🎂</h1>
+      <p class="subtitle">hạp pì hạp pì bớt đâyyyy</p>
+      <button id="playMusic" style="padding: 12px 30px; font-size: 1.1rem; background: #70e000; color: white; border: none; border-radius: 8px; cursor: pointer; margin: 10px auto; display: block;">🎵 Bật nhạc sinh nhật!</button>
+    </div>
+    <audio id="birthdayAudio" loop>
+      <source src="https://www.myinstants.com/media/sounds/happy-birthday-song.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const questionPage = document.getElementById("questionPage");
+    const belPage = document.getElementById("belPage");
+
+    // Set initial position to prevent disappearing
+    function setInitialPosition() {
+      const padding = 100;
+      const centerX = window.innerWidth * 0.65;
+      const centerY = window.innerHeight * 0.5;
+      
+      noBtn.style.left = `${centerX}px`;
+      noBtn.style.top = `${centerY}px`;
+    }
+
+    // "Không" chạy trốn khi di chuột tới
+    noBtn.addEventListener("mouseover", () => {
+      const padding = 80;
+      const minX = padding;
+      const maxX = window.innerWidth - padding;
+      const minY = padding;
+      const maxY = window.innerHeight - padding;
+      
+      const newX = minX + Math.random() * (maxX - minX);
+      const newY = minY + Math.random() * (maxY - minY);
+      
+      noBtn.style.left = `${newX}px`;
+      noBtn.style.top = `${newY}px`;
+    });
+
+    // Also handle click events
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const padding = 80;
+      const minX = padding;
+      const maxX = window.innerWidth - padding;
+      const minY = padding;
+      const maxY = window.innerHeight - padding;
+      
+      const newX = minX + Math.random() * (maxX - minX);
+      const newY = minY + Math.random() * (maxY - minY);
+      
+      noBtn.style.left = `${newX}px`;
+      noBtn.style.top = `${newY}px`;
+    });
+
+    // Khi bấm "Có"
+    yesBtn.addEventListener("click", () => {
+      document.body.classList.add("fade-out");
+      setTimeout(() => {
+        questionPage.style.display = "none";
+        belPage.style.display = "flex";
+        document.body.classList.remove("fade-out");
+        spawnMemes();
+        
+        // Try to autoplay music
+        const audio = document.getElementById('birthdayAudio');
+        audio.play().catch(() => {
+          // If autoplay fails, show the play button
+          console.log('Autoplay blocked, user needs to click play button');
+        });
+      }, 700);
+    });
+
+    // Handle music play button
+    const playMusicBtn = document.getElementById('playMusic');
+    const audio = document.getElementById('birthdayAudio');
+    
+    playMusicBtn.addEventListener('click', () => {
+      audio.play();
+      playMusicBtn.style.display = 'none'; // Hide button after playing
+    });
+
+    // Initialize position on load
+    window.addEventListener('load', setInitialPosition);
+    window.addEventListener('resize', setInitialPosition);
+
+    // Local meme images - đặt các file ảnh cùng thư mục với file HTML
+    const memeURLs = [
+      "meme1.jpg",
+      "meme2.jpg",
+      "meme3.jpg",
+      "meme4.jpg",
+      "meme5.jpg",
+      "meme6.jpg",
+      "meme7.jpg",
+      "meme8.jpg",
+      "meme9.jpg",
+      "meme10.jpg"
+    ];
+
+    function spawnMemes() {
+      for (let i = 0; i < 25; i++) {
+        const img = document.createElement("img");
+        img.src = memeURLs[Math.floor(Math.random() * memeURLs.length)];
+        img.className = "meme";
+        img.style.top = `${Math.random() * 100}vh`;
+        img.style.left = `${Math.random() * 100}vw`;
+        belPage.appendChild(img);
+        floatAround(img);
+      }
+    }
+
+    function floatAround(img) {
+      let x = 0, y = 0, rot = 0;
+      let dirX = (Math.random() - 0.5) * 5;
+      let dirY = (Math.random() - 0.5) * 5;
+      let rotSpeed = (Math.random() - 0.5) * 3;
+
+      function move() {
+        x += dirX;
+        y += dirY;
+        rot += rotSpeed;
+
+        const maxX = window.innerWidth / 3;
+        const maxY = window.innerHeight / 3;
+        
+        if (x > maxX || x < -maxX) dirX *= -1;
+        if (y > maxY || y < -maxY) dirY *= -1;
+
+        img.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg)`;
+        requestAnimationFrame(move);
+      }
+      move();
+    }
+  </script>
+</body>
+</html>
